@@ -13,7 +13,7 @@ setup(
     'An mkdocs plugin that injects snippets from a file in a git repository',
     long_description=read('README.md'),
     keywords='mkdocs python markdown snippet',
-    url='https://github.com/availity/mkdocs-snippet-plugin/',
+    url='https://github.com/mprivat/mkdocs-snippet-plugin',
     author='Michael Privat',
     author_email='Michael.Privat@availity.com',
     license='MIT',
