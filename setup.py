@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='mkdocs-snippet-plugin',
-    version='1.0.0',
+    version='1.0.1',
     description=
     'An mkdocs plugin that injects snippets from a file in a git repository',
     long_description=read('README.md'),
