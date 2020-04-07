@@ -7,12 +7,19 @@ import shutil
 import re
 import os
 import mkdocs
+import sys
 
 
 class SnippetPlugin(BasePlugin):
+
+    if sys.version_info[0] == 3:
+        string_types = str
+    else:
+        string_types = basestring
+
     config_scheme = (('base_path',
                       mkdocs.config.config_options.Type(
-                          mkdocs.utils.string_types, default=None)), )
+                          string_types, default=None)), )
 
     page = None
 
