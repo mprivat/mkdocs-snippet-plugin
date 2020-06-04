@@ -12,6 +12,7 @@ setup(
     description=
     'An mkdocs plugin that injects snippets from a file in a git repository',
     long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     keywords='mkdocs python markdown snippet',
     url='https://github.com/mprivat/mkdocs-snippet-plugin',
     author='Michael Privat',
