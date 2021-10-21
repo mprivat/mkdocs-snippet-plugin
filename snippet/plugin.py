@@ -22,6 +22,7 @@ class SnippetPlugin(BasePlugin):
                           string_types, default=None)), )
 
     page = None
+    repos = dict()
 
     def copy_markdown_images(self, tmpRoot, markdown):
         # root = os.path.dirname(os.path.dirname(self.page.url))
@@ -55,9 +56,13 @@ class SnippetPlugin(BasePlugin):
         if m:
             section_level = m.span()[1] - 1
 
-            id = uuid.uuid4().hex
-            root = "/tmp/" + id
-            Repo.clone_from(git_url, root)
+            root = ""
+            if self.repos.get(git_url) is None:
+                root = "/tmp/" + uuid.uuid4().hex
+                self.repos[git_url] = root
+                Repo.clone_from(git_url, root)
+            else:
+                root = self.repos[git_url]
 
             content = ""
             with open(root + '/' + file_path, 'r') as myfile:
@@ -79,8 +84,6 @@ class SnippetPlugin(BasePlugin):
 
             # If there are any images, find them, copy them
             result = self.copy_markdown_images(root, result)
-
-            shutil.rmtree(root)
             return result
         else:
             return "Markdown section doesn't exist in source"
@@ -95,3 +98,8 @@ class SnippetPlugin(BasePlugin):
         self.page = page
         md_template = Template(markdown)
         return md_template.render(snippet=self.snippet)
+
+    def on_post_build(self, config):
+        for key in self.repos:
+            shutil.rmtree(self.repos[key])
+        self.repos.clear()
